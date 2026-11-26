@@ -51,7 +51,12 @@ function extractStudioCutout(img: HTMLImageElement): string | null {
       const b = data[p + 2];
       const minC = r < g ? (r < b ? r : b) : g < b ? g : b;
       const maxC = r > g ? (r > b ? r : b) : g > b ? g : b;
-      return minC >= 224 && maxC - minC <= 24;
+      const chroma = maxC - minC;
+      // Pure/near-white studio backdrop & soft warm vignette
+      if (minC >= 214 && chroma <= 26) return true;
+      // Neutral light-gray cast floor shadow on white studio sweep
+      if (minC >= 156 && chroma <= 18) return true;
+      return false;
     };
 
     const enqueue = (idx: number) => {
@@ -80,7 +85,7 @@ function extractStudioCutout(img: HTMLImageElement): string | null {
       const b = data[p + 2];
       const minC = r < g ? (r < b ? r : b) : g < b ? g : b;
       const maxC = r > g ? (r > b ? r : b) : g > b ? g : b;
-      if (minC >= 244 && maxC - minC <= 10) {
+      if (minC >= 246 && maxC - minC <= 8) {
         visited[idx] = 1;
         queue[tail++] = idx;
       }
@@ -99,34 +104,51 @@ function extractStudioCutout(img: HTMLImageElement): string | null {
       if (y + 1 < h) enqueue(idx + w);
     }
 
-    // Soft anti-aliased edge feathering & white-halo removal
-    for (let y = 1; y < h - 1; y++) {
-      for (let x = 1; x < w - 1; x++) {
-        const idx = y * w + x;
-        if (visited[idx]) continue;
+    // 2-pass soft anti-aliased edge feathering & white/gray halo removal
+    const cleared = new Uint8Array(visited);
+    for (let pass = 0; pass < 2; pass++) {
+      const nextCleared: number[] = [];
+      for (let y = 1; y < h - 1; y++) {
+        for (let x = 1; x < w - 1; x++) {
+          const idx = y * w + x;
+          if (cleared[idx]) continue;
 
-        const hasClearedNeighbor =
-          visited[idx - 1] ||
-          visited[idx + 1] ||
-          visited[idx - w] ||
-          visited[idx + w];
+          const hasClearedNeighbor =
+            cleared[idx - 1] ||
+            cleared[idx + 1] ||
+            cleared[idx - w] ||
+            cleared[idx + w];
 
-        if (!hasClearedNeighbor) continue;
+          if (!hasClearedNeighbor) continue;
 
-        const p = idx * 4;
-        const r = data[p];
-        const g = data[p + 1];
-        const b = data[p + 2];
-        const minC = Math.min(r, g, b);
-        const maxC = Math.max(r, g, b);
+          const p = idx * 4;
+          const r = data[p];
+          const g = data[p + 1];
+          const b = data[p + 2];
+          const minC = Math.min(r, g, b);
+          const maxC = Math.max(r, g, b);
+          const chroma = maxC - minC;
 
-        if (minC >= 188 && maxC - minC <= 32) {
-          const alpha = Math.max(0, Math.min(255, Math.round((232 - minC) * 5)));
-          data[p + 3] = alpha;
-          data[p] = Math.round(r * 0.9);
-          data[p + 1] = Math.round(g * 0.88);
-          data[p + 2] = Math.round(b * 0.84);
+          if (chroma <= 30 && minC >= 148) {
+            const factor = pass === 0 ? 0.25 : 0.6;
+            const alpha = Math.max(
+              0,
+              Math.min(255, Math.round((215 - minC) * 3.8 * factor))
+            );
+            data[p + 3] = Math.min(data[p + 3], alpha);
+            if (alpha < 45) {
+              nextCleared.push(idx);
+            } else {
+              // Suppress neutral bright fringe tint
+              data[p] = Math.round(r * 0.85);
+              data[p + 1] = Math.round(g * 0.82);
+              data[p + 2] = Math.round(b * 0.78);
+            }
+          }
         }
+      }
+      for (const idx of nextCleared) {
+        cleared[idx] = 1;
       }
     }
 

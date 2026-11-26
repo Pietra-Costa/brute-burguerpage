@@ -22,7 +22,7 @@ export function LocationSection() {
   return (
     <section
       id="contato"
-      className="bg-[#842B0B] text-[#FFF0DC]"
+      className="scroll-mt-16 bg-[#842B0B] text-[#FFF0DC]"
     >
       <div className="mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-12 py-16 sm:py-24 lg:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">

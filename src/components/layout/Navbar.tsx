@@ -94,15 +94,12 @@ export function Navbar() {
 
           {/* Zone 3: Single Primary Anchor CTA + Mobile Trigger */}
           <div className="flex items-center gap-3 shrink-0">
-            <Button
-              href="#cardapio"
-              variant="primary"
-              size="sm"
-              className="hidden md:inline-flex"
-            >
-              <span>EXPLORAR CARDÁPIO</span>
-              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-            </Button>
+            <div className="hidden md:block shrink-0">
+              <Button href="#cardapio" variant="primary" size="sm">
+                <span>EXPLORAR CARDÁPIO</span>
+                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </Button>
+            </div>
 
             <button
               type="button"

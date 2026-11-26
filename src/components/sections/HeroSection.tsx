@@ -37,7 +37,7 @@ export function HeroSection() {
       ref={sectionRef}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
-      className="relative overflow-hidden bg-[#FFBF00] text-[#17120F]"
+      className="relative scroll-mt-16 overflow-hidden bg-[#FFBF00] text-[#17120F]"
     >
       {/* Asymmetric Torn Dark-Ink Corner Wedge & Checkered Streetwear Pattern */}
       <div

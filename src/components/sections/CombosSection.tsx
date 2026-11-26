@@ -13,7 +13,7 @@ export function CombosSection() {
   return (
     <section
       id="combos"
-      className="relative bg-[#FFBF00] text-[#17120F]"
+      className="relative scroll-mt-16 bg-[#FFBF00] text-[#17120F]"
     >
       <div className="mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-12 py-16 sm:py-24 lg:py-28">
         {/* Top Asymmetric Campaign Split */}

@@ -17,7 +17,7 @@ export function MenuSection() {
   return (
     <section
       id="cardapio"
-      className="relative bg-[#17120F] text-[#FFF0DC]"
+      className="relative scroll-mt-16 bg-[#17120F] text-[#FFF0DC]"
     >
       <div className="mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-12 py-16 sm:py-24 lg:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">

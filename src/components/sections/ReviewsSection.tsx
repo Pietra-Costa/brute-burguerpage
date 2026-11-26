@@ -24,7 +24,7 @@ export function ReviewsSection() {
   return (
     <section
       id="avaliacoes"
-      className="bg-[#FFF0DC] text-[#17120F]"
+      className="scroll-mt-16 bg-[#FFF0DC] text-[#17120F]"
     >
       <div className="mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-12 py-16 sm:py-24 lg:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">

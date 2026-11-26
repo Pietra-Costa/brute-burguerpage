@@ -26,7 +26,7 @@ export function ExplodedBurgerSection() {
   return (
     <section
       id="anatomia"
-      className="relative overflow-hidden bg-[#FFF0DC] text-[#17120F]"
+      className="relative scroll-mt-16 overflow-hidden bg-[#FFF0DC] text-[#17120F]"
     >
       {/* Subtle Asymmetric Yellow Graphic Block */}
       <div
