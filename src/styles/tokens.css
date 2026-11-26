@@ -1,0 +1,20 @@
+:root {
+  /* Brand Palette */
+  --brute-yellow: #ffbf00;
+  --brute-burgundy: #842b0b;
+  --brute-cream: #fff0dc;
+  --brute-ink: #17120f;
+  --brute-orange: #f47721;
+  --brute-white: #ffffff;
+
+  /* Typography */
+  --font-display: 'Archivo Black', Impact, 'Arial Black', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Brutalist Elevation & Borders */
+  --shadow-hard-ink: 6px 6px 0px #17120f;
+  --shadow-hard-ink-sm: 4px 4px 0px #17120f;
+  --shadow-hard-burgundy: 6px 6px 0px #842b0b;
+  --shadow-hard-yellow: 6px 6px 0px #ffbf00;
+}

@@ -1,0 +1,8 @@
+{
+  "name": "BRUTE. — Smash Burgers Sem Misericórdia",
+  "description": "Experiência digital da BRUTE., hamburgueria independente de smash burger artesanal. Carne prensada na chapa, queijo derretendo e atitude de rua.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
